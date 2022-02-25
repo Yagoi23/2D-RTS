@@ -29,6 +29,9 @@ func _process(delta):
 		camera_speed = 1
 
 func _unhandled_input(event):
+	var refrence_position = Vector2.ZERO
+	refrence_position = get_parent().get_node("Player").position
+	#print(refrence_position)
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
 		if event.pressed:
 			for unit in selected:
@@ -39,12 +42,14 @@ func _unhandled_input(event):
 		elif dragging:
 			dragging = false
 			select_draw.update_status(drag_start, event.position, dragging)
-			var drag_end = event.position #+ Vector2(position.x, position.y)
-			select_rectangle.extents = (drag_end - drag_start)/2
+			var drag_end = event.position # - Vector2(position.x, global_position.y)
+			#select_rectangle.extents = (drag_end - drag_start)
+			select_rectangle.extents = (drag_end - drag_start)/2 + refrence_position
 			var space = get_world_2d().direct_space_state
 			var query = Physics2DShapeQueryParameters.new()
 			query.set_shape(select_rectangle)
-			query.transform = Transform2D(0, (drag_end + drag_start)/2)
+			query.transform = Transform2D(0, (drag_end + drag_start)/2 + refrence_position)
+			#query.transform = Transform2D(0, (drag_end + drag_start))
 			selected = space.intersect_shape(query)
 			#print(selected)
 			for unit in selected:
