@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/SelectDraw.gd" type="Script" id=2]
+[ext_resource path="res://Player/BuildingIcon.png" type="Texture" id=3]
+[ext_resource path="res://Player/CommandIcon.png" type="Texture" id=4]
 
 [node name="Player" type="Node2D"]
 script = ExtResource( 1 )
@@ -13,17 +15,37 @@ current = true
 [node name="SelectDraw" type="Node2D" parent="."]
 script = ExtResource( 2 )
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="UI" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="UI"]
+margin_right = 34.0
+margin_bottom = 34.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="UI/ColorRect"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 33.0
+margin_bottom = 33.0
+
+[node name="Label" type="Label" parent="UI"]
 visible = false
 margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_bottom = 14.0
+text = "state"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="BuildingIcon" type="TextureRect" parent="UI"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 33.0
+margin_bottom = 33.0
+texture = ExtResource( 3 )
+
+[node name="CommandIcon" type="TextureRect" parent="UI"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 33.0
+margin_bottom = 33.0
+texture = ExtResource( 4 )
