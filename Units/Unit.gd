@@ -10,7 +10,7 @@ var target_max = 1
 onready var SelectedIcon = $SelectedIcon
 
 #var slide_count
-const move_threshold = 0.025
+const move_threshold = 1.5
 var last_position = Vector2.ZERO
 var major_target = Vector2.ZERO
 #var last_distance_to_target = Vector2.ZERO
@@ -29,7 +29,7 @@ func _physics_process(delta):
 		velocity = position.direction_to(target) * speed
 	velocity = move_and_slide(velocity)
 	if get_slide_count() and MoveTimer.is_stopped():
-		MoveTimer.start()
+		#MoveTimer.start()
 		last_position = position
 		#last_distance_to_target = position.distance_to(target)
 
