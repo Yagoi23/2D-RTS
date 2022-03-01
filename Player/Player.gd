@@ -72,5 +72,9 @@ func _unhandled_input(event):
 		if dragging:
 			if event is InputEventMouseMotion:
 				select_draw.update_status(drag_start, event.position, dragging)
+		if event is InputEventMouseButton and event.button_index == BUTTON_RIGHT:
+			if event.pressed:
+				for unit in selected:
+					unit.collider.move_to(event.position)
 	if STATE == state.BUILD:
 		print("Build")
