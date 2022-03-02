@@ -69,8 +69,9 @@ func _unhandled_input(event):
 				selected = space.intersect_shape(query)
 				for unit in selected:
 					if not unit.collider.is_in_group("Unit"):
-						var i = selected.find(unit.collider)
-						selected.remove(i)
+						pass
+						#var i = selected.find(unit.collider)
+						#selected.remove(i)
 						#var i = selected.find(unit)
 						#selected.remove(i)
 						#selected.erase(unit)
