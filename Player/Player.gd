@@ -46,47 +46,44 @@ func _unhandled_input(event):
 	if STATE == state.COMMAND:
 		var refrence_position = Vector2.ZERO
 		refrence_position = get_parent().get_node("Player").position
-		#print(refrence_position)
 		if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
 			if event.pressed:
+				#deselects all units
 				for unit in selected:
-					if unit.collider.is_in_group("Unit"):
-						unit.collider.deselect()
+					unit.collider.deselect()
+				#emptys array
 				selected = []
 				dragging = true
 				drag_start = event.position
 			elif dragging:
 				dragging = false
+				#draw selection
 				select_draw.update_status(drag_start, event.position, dragging)
-				var drag_end = event.position # - Vector2(position.x, global_position.y)
-				#select_rectangle.extents = (drag_end - drag_start)
-				select_rectangle.extents = (drag_end - drag_start)/2# + refrence_position# - (drag_end + drag_start)/2
+				var drag_end = event.position
+				select_rectangle.extents = (drag_end - drag_start)/2
 				var space = get_world_2d().direct_space_state
 				var query = Physics2DShapeQueryParameters.new()
 				query.set_shape(select_rectangle)
 				query.transform = Transform2D(0, (drag_end + drag_start)/2  + refrence_position)
-				#query.transform = Transform2D(0, (drag_end + drag_start))
-				selected = space.intersect_shape(query)
-				for unit in selected:
-					if not unit.collider.is_in_group("Unit"):
-						pass
-						#var i = selected.find(unit.collider)
-						#selected.remove(i)
-						#var i = selected.find(unit)
-						#selected.remove(i)
-						#selected.erase(unit)
-				#print(selected)
+				#add colliders to selected array
+				selected = space.intersect_shape(query, 1000)
+				#filter out non units
+				var actual_units = []
 				for unit in selected:
 					if unit.collider.is_in_group("Unit"):
-						#if unit.is_in_group("Unit"):
-						unit.collider.select()
+						actual_units.append(unit)
+				selected = actual_units
+				#selects units
+				for unit in selected:
+					unit.collider.select()
 		if dragging:
 			if event is InputEventMouseMotion:
+				#draws selection box
 				select_draw.update_status(drag_start, event.position, dragging)
 		if event is InputEventMouseButton and event.button_index == BUTTON_RIGHT:
+			#tells unit where to move
 			if event.pressed:
 				for unit in selected:
-					if unit.collider.is_in_group("Unit"):
-						unit.collider.move_to(event.position + refrence_position)
+					unit.collider.move_to(event.position + refrence_position)
 	if STATE == state.BUILD:
 		print("Build")
