@@ -50,7 +50,8 @@ func _unhandled_input(event):
 		if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
 			if event.pressed:
 				for unit in selected:
-					unit.collider.deselect()
+					if unit.collider.is_in_group("Unit"):
+						unit.collider.deselect()
 				selected = []
 				dragging = true
 				drag_start = event.position
@@ -66,16 +67,25 @@ func _unhandled_input(event):
 				query.transform = Transform2D(0, (drag_end + drag_start)/2  + refrence_position)
 				#query.transform = Transform2D(0, (drag_end + drag_start))
 				selected = space.intersect_shape(query)
+				for unit in selected:
+					if not unit.collider.is_in_group("Unit"):
+						var i = selected.find(unit.collider)
+						selected.remove(i)
+						#var i = selected.find(unit)
+						#selected.remove(i)
+						#selected.erase(unit)
 				#print(selected)
 				for unit in selected:
-					#if unit.is_in_group("Unit"):
-					unit.collider.select()
+					if unit.collider.is_in_group("Unit"):
+						#if unit.is_in_group("Unit"):
+						unit.collider.select()
 		if dragging:
 			if event is InputEventMouseMotion:
 				select_draw.update_status(drag_start, event.position, dragging)
 		if event is InputEventMouseButton and event.button_index == BUTTON_RIGHT:
 			if event.pressed:
 				for unit in selected:
-					unit.collider.move_to(event.position + refrence_position)
+					if unit.collider.is_in_group("Unit"):
+						unit.collider.move_to(event.position + refrence_position)
 	if STATE == state.BUILD:
 		print("Build")
