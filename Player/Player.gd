@@ -31,6 +31,10 @@ func _process(delta):
 			camera_speed += 1
 		if Input.is_action_pressed("decrease_camera_speed"):
 			camera_speed -= 1
+		if Input.is_action_pressed("enter_command_mode"):
+			STATE = state.COMMAND
+		if Input.is_action_pressed("enter_build_mode"):
+			STATE = state.BUILD
 	if camera_speed > 10:
 		camera_speed = 10
 	if camera_speed < 1:
