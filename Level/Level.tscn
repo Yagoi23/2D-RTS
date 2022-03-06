@@ -32,6 +32,26 @@ position = Vector2( 477, 246 )
 [node name="Unit5" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 424, 238 )
 
+[node name="Unit25" parent="YSort" instance=ExtResource( 2 )]
+position = Vector2( 959, 269 )
+unit_owner = 1
+
+[node name="Unit26" parent="YSort" instance=ExtResource( 2 )]
+position = Vector2( 983, 254 )
+unit_owner = 1
+
+[node name="Unit27" parent="YSort" instance=ExtResource( 2 )]
+position = Vector2( 988, 271 )
+unit_owner = 1
+
+[node name="Unit28" parent="YSort" instance=ExtResource( 2 )]
+position = Vector2( 1012, 256 )
+unit_owner = 1
+
+[node name="Unit29" parent="YSort" instance=ExtResource( 2 )]
+position = Vector2( 959, 248 )
+unit_owner = 1
+
 [node name="Unit6" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 448, 223 )
 
