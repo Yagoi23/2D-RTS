@@ -4,6 +4,7 @@ var dragging = false
 var selected = []
 var drag_start = Vector2.ZERO
 var select_rectangle = RectangleShape2D.new()
+var weakref_selected = []
 
 onready var select_draw = $SelectDraw
 
@@ -48,13 +49,15 @@ func _process(delta):
 
 func _unhandled_input(event):
 	if STATE == state.COMMAND:
+		GlobalInformation.player_state = "command"
 		var refrence_position = Vector2.ZERO
 		refrence_position = get_parent().get_node("Player").position
 		if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
 			if event.pressed:
 				#deselects all units
-				for unit in selected:
-					unit.collider.deselect()
+				for unit in weakref_selected:
+					if unit.get_ref():
+						unit.get_ref().deselect()
 				#emptys array
 				selected = []
 				dragging = true
@@ -78,16 +81,21 @@ func _unhandled_input(event):
 						actual_units.append(unit)
 				selected = actual_units
 				#selects units
+				#for unit in selected:
+				#	unit.collider.select()
 				for unit in selected:
-					unit.collider.select()
+					if unit.collider.unit_owner == 0:
+						unit.collider.select()
+						weakref_selected.append(weakref(unit.collider))
 		if dragging:
 			if event is InputEventMouseMotion:
 				#draws selection box
 				select_draw.update_status(drag_start, event.position, dragging)
-		if event is InputEventMouseButton and event.button_index == BUTTON_RIGHT:
+		#if event is InputEventMouseButton and event.button_index == BUTTON_RIGHT:
 			#tells unit where to move
-			if event.pressed:
-				for unit in selected:
-					unit.collider.move_to(event.position + refrence_position)
+			#if event.pressed:
+				#for unit in selected:
+					#unit.collider.move_to(event.position + refrence_position)
 	if STATE == state.BUILD:
+		GlobalInformation.player_state = "build"
 		print("Build")

@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "StateMachine",
 "language": "GDScript",
 "path": "res://Units/StateMachine.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Unit",
+"language": "GDScript",
+"path": "res://Units/Unit.gd"
 } ]
 _global_script_class_icons={
-"StateMachine": ""
+"StateMachine": "",
+"Unit": ""
 }
 
 [application]
@@ -26,6 +32,10 @@ boot_splash/image="res://icon.png"
 boot_splash/use_filter=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
+
+[autoload]
+
+GlobalInformation="*res://Global_Information.gd"
 
 [importer_defaults]
 
@@ -91,6 +101,16 @@ enter_build_mode={
 enter_command_mode={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":49,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+attack_move={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":81,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+hold={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 
