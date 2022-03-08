@@ -41,6 +41,38 @@ shape = SubResource( 2 )
 
 [node name="AttackTimer" type="Timer" parent="."]
 
+[node name="Rays" type="Node2D" parent="."]
+position = Vector2( 0, 4 )
+
+[node name="RayFront" type="RayCast2D" parent="Rays"]
+enabled = true
+cast_to = Vector2( 25, 0 )
+collision_mask = 2
+
+[node name="RayRight2" type="RayCast2D" parent="Rays"]
+rotation = 1.0472
+enabled = true
+cast_to = Vector2( 25, 0 )
+collision_mask = 2
+
+[node name="RayRight" type="RayCast2D" parent="Rays"]
+rotation = 0.523599
+enabled = true
+cast_to = Vector2( 25, 0 )
+collision_mask = 2
+
+[node name="RayLeft2" type="RayCast2D" parent="Rays"]
+rotation = -1.0472
+enabled = true
+cast_to = Vector2( 25, 0 )
+collision_mask = 2
+
+[node name="RayLeft" type="RayCast2D" parent="Rays"]
+rotation = -0.523599
+enabled = true
+cast_to = Vector2( 25, 0 )
+collision_mask = 2
+
 [connection signal="timeout" from="MoveTimer" to="UnitStateMachine" method="_on_MoveTimer_timeout"]
 [connection signal="body_entered" from="VisionRange" to="." method="_on_VisionRange_body_entered"]
 [connection signal="body_exited" from="VisionRange" to="." method="_on_VisionRange_body_exited"]

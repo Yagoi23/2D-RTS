@@ -18,6 +18,7 @@ onready var BuildIcon = $UI/BuildingIcon
 onready var CommandIcon = $UI/CommandIcon
 
 func _process(delta):
+	GlobalInformation.movement_group = weakref_selected
 	$UI/Label.text = str(STATE)
 	if dragging != true:
 		if Input.is_action_pressed("player_move_up"):
@@ -52,6 +53,7 @@ func _unhandled_input(event):
 		GlobalInformation.player_state = "command"
 		var refrence_position = Vector2.ZERO
 		refrence_position = get_parent().get_node("Player").position
+		GlobalInformation.player_refrence_position = refrence_position
 		if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
 			if event.pressed:
 				#deselects all units
@@ -99,3 +101,6 @@ func _unhandled_input(event):
 	if STATE == state.BUILD:
 		GlobalInformation.player_state = "build"
 		print("Build")
+
+#func get_movement_group():
+#	return weakref_selected

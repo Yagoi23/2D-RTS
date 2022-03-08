@@ -9,6 +9,8 @@ var velocity = Vector2.ZERO
 var speed = 60
 var target_max = 1
 
+var movement_group = []
+onready var player = get_node("/root/player")
 
 onready var SelectedIcon = $SelectedIcon
 
@@ -18,6 +20,12 @@ var last_position = Vector2.ZERO
 #var major_target = Vector2.ZERO
 #var last_distance_to_target = Vector2.ZERO
 #var current_distance_to_target = Vector2.ZERO
+
+var nav_path : PoolVector2Array
+onready var nav2d = get_node("/root/Level/Navigation2D")
+var leg_reset_threshold = 10
+
+var current_leg = Vector2.ZERO
 
 #attacking
 var possible_targets = []
@@ -31,6 +39,9 @@ onready var collision_shape = $CollisionShape2D
 onready var MoveTimer = $MoveTimer
 onready var AttackTimer = $AttackTimer
 onready var sprite = $ColorRect
+
+onready var rays = $Rays
+onready var ray_front = $Rays/RayFront
 
 func _ready():
 	selected = false
@@ -49,12 +60,52 @@ func _ready():
 #	if get_slide_count() and MoveTimer.is_stopped():
 #		last_position = position
 
+func set_target(target):
+	MoveTimer.stop()
+	movement_group = GlobalInformation.movement_group
+	nav_path = nav2d.get_simple_path(self.global_position, target)
+	movement_target = target
+
+func recalculate_path():
+	nav_path = nav2d.get_simple_path(self.global_position, movement_target)
+
+func move_along_path(delta):
+	if nav_path.size() > 0:
+		var distance_to_next_point = position.distance_to(nav_path[0])
+		current_leg = nav_path[0]
+		if distance_to_next_point < leg_reset_threshold:
+			nav_path.remove(0)
+			if nav_path.size() != 0:
+				current_leg = nav_path[0]
+				velocity = position.direction_to(nav_path[0]) * speed
+				#move_and_slide(velocity)
+				move_with_avoidance(nav_path[0])
+		else:
+			velocity = position.direction_to(nav_path[0]) * speed
+			#move_and_slide(velocity)
+			move_with_avoidance(nav_path[0])
+	colliders_reached_target()
+
+
+func colliders_reached_target():
+	if MoveTimer.is_stopped():
+		for i in get_slide_count():
+			var collider = get_slide_collision(i).collider
+			for unit in movement_group:
+				if unit.get_ref():
+					if unit.get_ref() == collider:
+						if collider.reached_target():
+							MoveTimer.start()
+
+func reached_target() -> bool:
+	return movement_target == position
+
 func move_to_target(delta, tar):
 	velocity = Vector2.ZERO
 	velocity = position.direction_to(tar) * speed
 	velocity = move_and_slide(velocity)
-	if get_slide_count() and MoveTimer.is_stopped():
-		last_position = position
+	#if get_slide_count() and MoveTimer.is_stopped():
+	#	last_position = position
 
 func move_to(tar):
 	movement_target = tar
@@ -67,7 +118,22 @@ func deselect():
 	selected = false
 	SelectedIcon.visible = false
 
+func move_with_avoidance(tar):
+	rays.rotation = velocity.angle()
+	if _obstacle_ahead():
+		var viable_ray = _get_viable_ray()
+		if viable_ray:
+			velocity = Vector2.RIGHT.rotated(rays.rotation + viable_ray.rotation) * speed
+	move_and_slide(velocity)
 
+func _obstacle_ahead() -> bool:
+	return ray_front.is_colliding()
+
+func _get_viable_ray() -> RayCast2D:
+	for ray in rays.get_children():
+		if !ray.is_colliding():
+			return ray
+	return null
 #func _on_MoveTimer_timeout():
 #	if get_slide_count():
 #		if last_position.distance_to(target) < position.distance_to(target) + move_threshold:
@@ -124,3 +190,6 @@ func take_damage(amount) -> bool:
 
 func get_state():
 	return state_machine.state
+
+#func is_dying() -> bool:
+#	return state_machine.state == state_machine.states.dying

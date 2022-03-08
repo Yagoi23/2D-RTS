@@ -31,7 +31,7 @@ func _input(event):
 			command = Commands.HOLD
 			set_state(states.idle)
 		if event is InputEventMouseButton and event.button_index == BUTTON_RIGHT:
-			parent.movement_target = event.position
+			parent.set_target(event.position  + GlobalInformation.player_refrence_position)
 			set_state(states.moving)
 			match command_mod:
 				CommandMods.NONE:
@@ -44,7 +44,7 @@ func _state_logic(delta):
 		states.idle:
 			pass
 		states.moving:
-			parent.move_to_target(delta, parent.movement_target)
+			parent.move_along_path(delta)
 		states.engaging:
 			if parent.attack_target.get_ref():
 				parent.move_to_target(delta, parent.attack_target.get_ref().position)
@@ -55,6 +55,41 @@ func _state_logic(delta):
 		states.dying:
 			parent.queue_free()
 
+#func _get_transition(delta):
+#	match state:
+#		states.idle:
+#			match command:
+#				Commands.HOLD:
+#					if parent.closest_enemy_within_range() != null:
+#						parent.attack_target = weakref(parent.closest_enemy_within_range())
+#						set_state(states.attacking)
+#				Commands.ATTACK_MOVE:
+#					set_state(states.moving)
+#				Commands.NONE:
+#					if parent.closest_enemy() != null:
+#						parent.attack_target = weakref(parent.closest_enemy())
+#						set_state(states.engaging)
+#		states.moving:
+#			if (command == Commands.ATTACK_MOVE):
+#				if parent.closest_enemy() != null:
+#					parent.attack_target = weakref(parent.closest_enemy())
+#					set_state(states.engaging)
+#			if parent.position.distance_to(parent.movement_target) < parent.target_max:
+#				parent.movement_target = parent.position
+#				set_state(states.idle)
+#				command = Commands.NONE
+#		states.engaging:
+#			if parent.closest_enemy_within_range() != null:
+#				parent.attack_target = weakref(parent.closest_enemy())
+#				set_state(states.attacking)
+#				parent.AttackTimer.start()
+#		states.attacking:
+#			if !parent.attack_target.get_ref():
+#				set_state(states.idle)
+#				parent.attack_target = null
+#		states.dying:
+#			parent.queue_free()
+
 func _get_transition(delta):
 	match state:
 		states.idle:
@@ -64,6 +99,7 @@ func _get_transition(delta):
 						parent.attack_target = weakref(parent.closest_enemy_within_range())
 						set_state(states.attacking)
 				Commands.ATTACK_MOVE:
+					parent.recalculate_path()
 					set_state(states.moving)
 				Commands.NONE:
 					if parent.closest_enemy() != null:
@@ -78,17 +114,21 @@ func _get_transition(delta):
 				parent.movement_target = parent.position
 				set_state(states.idle)
 				command = Commands.NONE
+				#print("reached target")
 		states.engaging:
 			if parent.closest_enemy_within_range() != null:
 				parent.attack_target = weakref(parent.closest_enemy())
 				set_state(states.attacking)
-				parent.AttackTimer.start()
+			#if parent.attack_target.get_ref().is_dying():
+			#	set_state(states.idle)
+			#	parent.attack_target = null
 		states.attacking:
-			if !parent.attack_target.get_ref():
-				set_state(states.idle)
-				parent.attack_target = null
+			pass
+			#if parent.attack_target.get_ref().is_dying():
+			#	set_state(states.idle)
+			#	parent.attack_target = null
 		states.dying:
-			parent.queue_free()
+			queue_free()
 
 func _enter_state(new_state, old_state):
 	print(new_state)
@@ -118,10 +158,10 @@ func died():
 	set_state(states.dying)
 
 func _on_MoveTimer_timeout():
-	if parent.get_slide_count():
-		if parent.last_position.distance_to(parent.movement_target) < parent.position.distance_to(parent.movement_target) + parent.move_threshold:
-			parent.movement_target = parent.position
-			set_state(states.idle)
+	if state != states.dying:
+		set_state(states.idle)
+		parent.movement_target = parent.position
+		print("group reached target")
 
 
 func _on_AttackTimer_timeout():

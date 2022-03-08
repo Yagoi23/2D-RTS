@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/SelectDraw.gd" type="Script" id=2]
 [ext_resource path="res://Player/BuildingIcon.png" type="Texture" id=3]
 [ext_resource path="res://Player/CommandIcon.png" type="Texture" id=4]
+[ext_resource path="res://Player/FPS.gd" type="Script" id=5]
 
 [node name="Player" type="Node2D"]
 script = ExtResource( 1 )
@@ -49,3 +50,9 @@ margin_top = 1.0
 margin_right = 33.0
 margin_bottom = 33.0
 texture = ExtResource( 4 )
+
+[node name="FPS" type="Label" parent="UI"]
+margin_left = 37.0
+margin_right = 77.0
+margin_bottom = 14.0
+script = ExtResource( 5 )
