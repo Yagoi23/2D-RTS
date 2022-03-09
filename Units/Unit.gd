@@ -23,6 +23,7 @@ var last_position = Vector2.ZERO
 
 var nav_path : PoolVector2Array
 onready var nav2d = get_node("/root/Level/Navigation2D")
+onready var TileMap = get_node("/root/Level/TileMap")
 var leg_reset_threshold = 10
 
 var current_leg = Vector2.ZERO
@@ -63,11 +64,17 @@ func _ready():
 func set_target(target):
 	MoveTimer.stop()
 	movement_group = GlobalInformation.movement_group
-	nav_path = nav2d.get_simple_path(self.global_position, target)
+	nav_path = TileMap.find_path(position, movement_target)
+	if not nav_path or len(nav_path) == 1:
+		#_change_state(STATES.IDLE)
+		return
 	movement_target = target
 
 func recalculate_path():
-	nav_path = nav2d.get_simple_path(self.global_position, movement_target)
+	nav_path = TileMap.find_path(position, movement_target)
+	if not nav_path or len(nav_path) == 1:
+		#_change_state(STATES.IDLE)
+		return
 
 func move_along_path(delta):
 	if nav_path.size() > 0:
