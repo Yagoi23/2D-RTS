@@ -119,6 +119,7 @@ func _get_transition(delta):
 			if parent.closest_enemy_within_range() != null:
 				parent.attack_target = weakref(parent.closest_enemy())
 				set_state(states.attacking)
+				parent.AttackTimer.start()
 			#if parent.attack_target.get_ref().is_dying():
 			#	set_state(states.idle)
 			#	parent.attack_target = null
