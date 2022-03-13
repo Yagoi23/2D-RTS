@@ -6,6 +6,9 @@ var tilemap: TileMap
 var half_cell_size: Vector2
 var used_rect: Rect2
 
+func _process(delta) -> void:
+	update_navigation_map()
+
 func create_navigation_map(tilemap: TileMap):
 	self.tilemap = tilemap
 	half_cell_size = tilemap.cell_size / 2
@@ -54,5 +57,24 @@ func get_new_path(start: Vector2, end: Vector2) -> Array:
 		var point_world = tilemap.map_to_world(point) + half_cell_size
 		path_world.append(point_world)
 	return path_world
-	
-	
+
+func update_navigation_map():
+	for point in astar.get_points():
+		astar.set_point_disabled(point, false)
+	var obstacles = get_tree().get_nodes_in_group("obstacle")
+	#var water = get_node("/root/Level/TileMap/WATER1")
+	for obstacle in obstacles:
+		if obstacle is TileMap:
+			var tiles = obstacle.get_used_cells()
+			#if obstacle == get_node("/root/Level/WaterTileMap"):
+			#	print(obstacle)
+				#print(obstacle.get_cellv(Vector2(1,1)))
+				#if obstacle.get_cellv():
+					#pass
+			for tile in tiles:
+				#if tile != get_node("/root/Level/WaterTileMap/tileset").tilegetname("WATER1"):
+				#	print("yes")
+				var id = get_id_for_point(tile)
+				if astar.has_point(id):
+					astar.set_point_disabled(id, true)
+		#if obstacle is 
