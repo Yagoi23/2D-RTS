@@ -22,7 +22,8 @@ var last_position = Vector2.ZERO
 #var current_distance_to_target = Vector2.ZERO
 
 var nav_path : PoolVector2Array
-onready var nav2d = get_node("/root/Level/Navigation2D")
+#onready var nav2d = get_node("/root/Level/Navigation2D")
+onready var pathfinding = get_node("/root/Level/Pathfinding")
 var leg_reset_threshold = 10
 
 var current_leg = Vector2.ZERO
@@ -63,11 +64,14 @@ func _ready():
 func set_target(target):
 	MoveTimer.stop()
 	movement_group = GlobalInformation.movement_group
-	nav_path = nav2d.get_simple_path(self.global_position, target)
+	print(target)
+	nav_path = pathfinding.get_new_path(self.global_position, target)
+	#nav_path = nav2d.get_simple_path(self.global_position, target)
 	movement_target = target
 
 func recalculate_path():
-	nav_path = nav2d.get_simple_path(self.global_position, movement_target)
+	pass
+	#nav_path = nav2d.get_simple_path(self.global_position, movement_target)
 
 func move_along_path(delta):
 	if nav_path.size() > 0:

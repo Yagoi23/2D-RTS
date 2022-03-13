@@ -40,3 +40,19 @@ func get_id_for_point(point: Vector2):
 	var y = point.y - used_rect.position.y
 	
 	return x + y * used_rect.size.x
+
+func get_new_path(start: Vector2, end: Vector2) -> Array:
+	var start_tile = tilemap.world_to_map(start)
+	var end_tile = tilemap.world_to_map(end)
+	var start_id = get_id_for_point(start_tile)
+	var end_id = get_id_for_point(end_tile)
+	if not astar.has_point(start_id) or not astar.has_point(end_id):
+		return []
+	var path_map = astar.get_point_path(start_id, end_id)
+	var path_world = []
+	for point in path_map:
+		var point_world = tilemap.map_to_world(point) + half_cell_size
+		path_world.append(point_world)
+	return path_world
+	
+	
