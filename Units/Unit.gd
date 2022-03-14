@@ -51,27 +51,13 @@ func _ready():
 	if unit_owner == 1:
 		sprite.color = Color(255,255,255)
 
-#func _physics_process(delta):
-#	if unit_owner == 1:
-#		$ColorRect.color = Color(255,255,255)
-#	velocity = Vector2.ZERO
-#	if position.distance_to(target) > target_max:
-#		velocity = position.direction_to(target) * speed
-#	velocity = move_and_slide(velocity)
-#	if get_slide_count() and MoveTimer.is_stopped():
-#		last_position = position
-
 func set_target(target):
 	MoveTimer.stop()
 	movement_group = GlobalInformation.movement_group
-	print(target)
+	#print(target)
 	nav_path = pathfinding.get_new_path(self.global_position, target)
 	#nav_path = nav2d.get_simple_path(self.global_position, target)
 	movement_target = target
-
-func recalculate_path():
-	pass
-	#nav_path = nav2d.get_simple_path(self.global_position, movement_target)
 
 func move_along_path(delta):
 	if nav_path.size() > 0:
@@ -82,11 +68,9 @@ func move_along_path(delta):
 			if nav_path.size() != 0:
 				current_leg = nav_path[0]
 				velocity = position.direction_to(nav_path[0]) * speed
-				#move_and_slide(velocity)
 				move_with_avoidance(nav_path[0])
 		else:
 			velocity = position.direction_to(nav_path[0]) * speed
-			#move_and_slide(velocity)
 			move_with_avoidance(nav_path[0])
 	colliders_reached_target()
 
@@ -108,8 +92,6 @@ func move_to_target(delta, tar):
 	velocity = Vector2.ZERO
 	velocity = position.direction_to(tar) * speed
 	velocity = move_and_slide(velocity)
-	#if get_slide_count() and MoveTimer.is_stopped():
-	#	last_position = position
 
 func move_to(tar):
 	movement_target = tar
@@ -138,11 +120,6 @@ func _get_viable_ray() -> RayCast2D:
 		if !ray.is_colliding():
 			return ray
 	return null
-#func _on_MoveTimer_timeout():
-#	if get_slide_count():
-#		if last_position.distance_to(target) < position.distance_to(target) + move_threshold:
-#			target = position
-
 
 func _on_VisionRange_body_entered(body):
 	if body.is_in_group("Unit"):

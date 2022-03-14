@@ -132,7 +132,7 @@ func _get_transition(delta):
 			queue_free()
 
 func _enter_state(new_state, old_state):
-	print(new_state)
+	#print(new_state)
 	match state:
 		states.idle:
 			pass
@@ -162,7 +162,7 @@ func _on_MoveTimer_timeout():
 	if state != states.dying:
 		set_state(states.idle)
 		parent.movement_target = parent.position
-		print("group reached target")
+		#print("group reached target")
 
 
 func _on_AttackTimer_timeout():
