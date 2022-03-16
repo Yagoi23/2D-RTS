@@ -99,7 +99,7 @@ func _get_transition(delta):
 						parent.attack_target = weakref(parent.closest_enemy_within_range())
 						set_state(states.attacking)
 				Commands.ATTACK_MOVE:
-					parent.recalculate_path()
+					#parent.recalculate_path()
 					set_state(states.moving)
 				Commands.NONE:
 					if parent.closest_enemy() != null:

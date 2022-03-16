@@ -230,7 +230,7 @@ position = Vector2( 578, 195 )
 position = Vector2( 602, 180 )
 
 [node name="Building" parent="." instance=ExtResource( 4 )]
-position = Vector2( 136, 296 )
+position = Vector2( 619, 395 )
 
 [node name="Pathfinding" type="Node2D" parent="."]
 script = ExtResource( 5 )

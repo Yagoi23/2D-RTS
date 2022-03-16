@@ -6,6 +6,9 @@ var drag_start = Vector2.ZERO
 var select_rectangle = RectangleShape2D.new()
 var weakref_selected = []
 
+onready var building = get_node("res://Buildings/Building.gd")
+onready var parent = get_parent()
+
 onready var select_draw = $SelectDraw
 
 onready var camera = $Camera2D 
@@ -101,6 +104,9 @@ func _unhandled_input(event):
 	if STATE == state.BUILD:
 		GlobalInformation.player_state = "build"
 		print("Build")
+		if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
+			if event.pressed:
+				parent.add_child(building)
 
 #func get_movement_group():
 #	return weakref_selected
