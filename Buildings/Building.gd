@@ -12,13 +12,13 @@ func _ready():
 
 func _process(delta):
 	# snaps building to grid
-	if int(position.x) % 8 == 0:
+	if int(position.x) % 16 == 0:
 		pass
 	elif int(position.x) == 0:
 		pass
 	else:
 		position.x -= 1
-	if int(position.y) % 8 == 0:
+	if int(position.y) % 16 == 0:
 		pass
 	elif int(position.y) == 0:
 		pass

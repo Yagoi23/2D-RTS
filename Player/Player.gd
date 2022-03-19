@@ -106,7 +106,10 @@ func _unhandled_input(event):
 		print("Build")
 		if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
 			if event.pressed:
-				parent.add_child(building)
+				var node = load("res://Buildings/Building.tscn").instance()
+				get_parent().add_child(node)
+				node.position = event.position  + GlobalInformation.player_refrence_position
+				node.set_owner(get_tree().get_edited_scene_root())
 
 #func get_movement_group():
 #	return weakref_selected
