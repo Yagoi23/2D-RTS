@@ -20,7 +20,14 @@ var STATE = state.COMMAND
 onready var BuildIcon = $UI/BuildingIcon
 onready var CommandIcon = $UI/CommandIcon
 
+onready var BuildingPredraw = $Building/BuildingPredraw
+
 func _process(delta):
+	if STATE == state.BUILD:
+		BuildingPredraw.visible = true
+	else:
+		BuildingPredraw.visible = false
+	#_update_building_predraw()
 	GlobalInformation.movement_group = weakref_selected
 	$UI/Label.text = str(STATE)
 	if dragging != true:
@@ -102,14 +109,39 @@ func _unhandled_input(event):
 				#for unit in selected:
 					#unit.collider.move_to(event.position + refrence_position)
 	if STATE == state.BUILD:
+		#BuildingPredraw.visible = true
 		GlobalInformation.player_state = "build"
-		print("Build")
+		#print("Build")
+		_update_building_predraw()
+		
+		
 		if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
+			print("pressed mouse")
 			if event.pressed:
 				var node = load("res://Buildings/Building.tscn").instance()
 				get_parent().add_child(node)
 				node.position = event.position  + GlobalInformation.player_refrence_position
 				node.set_owner(get_tree().get_edited_scene_root())
+		
+			
 
+func _update_building_predraw():
+	BuildingPredraw.position = get_global_mouse_position()# + (GlobalInformation.player_refrence_position / 2)
+	if int(BuildingPredraw.position.x) % 16 == 0:
+		pass
+	elif int(BuildingPredraw.position.x) == 0:
+		pass
+		#pass
+	else:
+		var x = int(BuildingPredraw.position.x) % 16
+		BuildingPredraw.position.x -= x 
+	if int(BuildingPredraw.position.y) % 16 == 0:
+		pass
+	#elif int(BuildingPredraw.position.y) == 0:
+		#pass
+	else:
+		var y = int(BuildingPredraw.position.y) % 16
+		BuildingPredraw.position.y -= y
+	print(BuildingPredraw.position)
 #func get_movement_group():
 #	return weakref_selected

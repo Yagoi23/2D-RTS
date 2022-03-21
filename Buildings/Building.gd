@@ -17,13 +17,15 @@ func _process(delta):
 	elif int(position.x) == 0:
 		pass
 	else:
-		position.x -= 1
+		var x = int(position.x) % 16
+		position.x -= x
 	if int(position.y) % 16 == 0:
 		pass
 	elif int(position.y) == 0:
 		pass
 		print(position)
 	else:
-		position.y -= 1
+		var y = int(position.y) % 16
+		position.y -= y
 
 
