@@ -8,7 +8,7 @@
 
 [sub_resource type="CircleShape2D" id=2]
 
-[node name="unit" type="KinematicBody2D" groups=["Unit"]]
+[node name="unit" type="KinematicBody2D" groups=["Unit", "obstacle"]]
 collision/safe_margin = 0.001
 script = ExtResource( 2 )
 

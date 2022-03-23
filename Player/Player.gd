@@ -126,7 +126,7 @@ func _unhandled_input(event):
 			
 
 func _update_building_predraw():
-	BuildingPredraw.position = get_global_mouse_position()# + (GlobalInformation.player_refrence_position / 2)
+	BuildingPredraw.position = get_local_mouse_position()# - (GlobalInformation.player_refrence_position*2)
 	if int(BuildingPredraw.position.x) % 16 == 0:
 		pass
 	elif int(BuildingPredraw.position.x) == 0:
