@@ -1,7 +1,11 @@
 extends Node2D
-class_name Building
+class_name Building_Preview
 
-
+func _ready():
+	if GlobalInformation.building_preview_hidden == true:
+		visible = false
+	else:
+		visible = true
 
 func _process(delta):
 	# snaps building to grid

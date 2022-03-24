@@ -25,10 +25,10 @@ onready var BuildingPredraw = $Building/BuildingPredraw
 var buildingpreview_position = null
 
 func _process(delta):
-	if STATE == state.BUILD:
-		BuildingPredraw.visible = true
-	else:
-		BuildingPredraw.visible = false
+	#if STATE == state.BUILD:
+	#	GlobalInformation.building_preview_hidden = false
+	#else:
+	#	GlobalInformation.building_preview_hidden = true
 	#_update_building_predraw()
 	GlobalInformation.movement_group = weakref_selected
 	$UI/Label.text = str(STATE)
@@ -111,6 +111,7 @@ func _unhandled_input(event):
 				#for unit in selected:
 					#unit.collider.move_to(event.position + refrence_position)
 	if STATE == state.BUILD:
+		#GlobalInformation.building_preview_hidden = true
 		#BuildingPredraw.visible = true
 		GlobalInformation.player_state = "build"
 		#print("Build")

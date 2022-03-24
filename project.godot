@@ -10,9 +10,14 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node2D",
-"class": "Building_Preview",
+"class": "Building",
 "language": "GDScript",
 "path": "res://Buildings/Building.gd"
+}, {
+"base": "Node2D",
+"class": "Building_Preview",
+"language": "GDScript",
+"path": "res://Buildings/Building_preview.gd"
 }, {
 "base": "Node2D",
 "class": "Pathfinding",
@@ -30,6 +35,7 @@ _global_script_classes=[ {
 "path": "res://Units/Unit.gd"
 } ]
 _global_script_class_icons={
+"Building": "",
 "Building_Preview": "",
 "Pathfinding": "",
 "StateMachine": "",
