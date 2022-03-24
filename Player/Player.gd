@@ -22,6 +22,8 @@ onready var CommandIcon = $UI/CommandIcon
 
 onready var BuildingPredraw = $Building/BuildingPredraw
 
+var buildingpreview_position = null
+
 func _process(delta):
 	if STATE == state.BUILD:
 		BuildingPredraw.visible = true
@@ -120,13 +122,13 @@ func _unhandled_input(event):
 			if event.pressed:
 				var node = load("res://Buildings/Building.tscn").instance()
 				get_parent().add_child(node)
-				node.position = event.position  + GlobalInformation.player_refrence_position
+				node.position = buildingpreview_position#.position#event.position + buildingpreview_position #- GlobalInformation.player_refrence_position
 				node.set_owner(get_tree().get_edited_scene_root())
 		
 			
 
 func _update_building_predraw():
-	BuildingPredraw.position = get_local_mouse_position()# - (GlobalInformation.player_refrence_position*2)
+	BuildingPredraw.position = get_local_mouse_position() # - get_global_mouse_position()# - (GlobalInformation.player_refrence_position*2)
 	if int(BuildingPredraw.position.x) % 16 == 0:
 		pass
 	elif int(BuildingPredraw.position.x) == 0:
@@ -143,5 +145,9 @@ func _update_building_predraw():
 		var y = int(BuildingPredraw.position.y) % 16
 		BuildingPredraw.position.y -= y
 	print(BuildingPredraw.position)
+	buildingpreview_position = BuildingPredraw.global_position
+	var true_building_preview = get_parent().get_node("TrueBuildingPreview")
+	true_building_preview.position = buildingpreview_position
+
 #func get_movement_group():
 #	return weakref_selected

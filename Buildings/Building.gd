@@ -1,11 +1,5 @@
 extends Node2D
-class_name Building
-
-var prod_resource : int = 0
-var prod_resource_ammount : int
-
-var upkeep_resource : int = 0
-var upkeep_resource_amount : int
+class_name Building_Preview
 
 func _ready():
 	pass
