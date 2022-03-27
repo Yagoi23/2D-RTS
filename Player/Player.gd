@@ -116,15 +116,16 @@ func _unhandled_input(event):
 		GlobalInformation.player_state = "build"
 		#print("Build")
 		_update_building_predraw()
+		_deselect_units()
 		
-		
-		if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
-			print("pressed mouse")
-			if event.pressed:
-				var node = load("res://Buildings/Building.tscn").instance()
-				get_parent().add_child(node)
-				node.position = buildingpreview_position#.position#event.position + buildingpreview_position #- GlobalInformation.player_refrence_position
-				node.set_owner(get_tree().get_edited_scene_root())
+		if GlobalInformation.can_build == true:
+			if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
+				#print("pressed mouse")
+				if event.pressed:
+					var node = load("res://Buildings/Building.tscn").instance()
+					get_parent().add_child(node)
+					node.position = buildingpreview_position#.position#event.position + buildingpreview_position #- GlobalInformation.player_refrence_position
+					node.set_owner(get_tree().get_edited_scene_root())
 		
 			
 
@@ -145,10 +146,14 @@ func _update_building_predraw():
 	else:
 		var y = int(BuildingPredraw.position.y) % 16
 		BuildingPredraw.position.y -= y
-	print(BuildingPredraw.position)
+	#print(BuildingPredraw.position)
 	buildingpreview_position = BuildingPredraw.global_position
 	var true_building_preview = get_parent().get_node("TrueBuildingPreview")
 	true_building_preview.position = buildingpreview_position
 
-#func get_movement_group():
-#	return weakref_selected
+func _deselect_units():
+	for unit in weakref_selected:
+		if unit.get_ref():
+			unit.get_ref().deselect()
+			#emptys array
+			selected = []
