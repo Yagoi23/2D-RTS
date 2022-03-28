@@ -10,7 +10,7 @@ var speed = 60
 var target_max = 1
 
 var movement_group = []
-onready var player = get_node("/root/player")
+onready var player = get_node("/root/Level/Player")
 
 onready var SelectedIcon = $SelectedIcon
 
@@ -53,7 +53,8 @@ func _ready():
 
 func set_target(target):
 	MoveTimer.stop()
-	movement_group = GlobalInformation.movement_group
+	movement_group = player.get_movement_group()
+	#movement_group = GlobalInformation.movement_group
 	#print(target)
 	nav_path = pathfinding.get_new_path(self.global_position, target)
 	#nav_path = nav2d.get_simple_path(self.global_position, target)

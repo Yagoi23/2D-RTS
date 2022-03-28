@@ -160,3 +160,6 @@ func _deselect_units():
 			unit.get_ref().deselect()
 			#emptys array
 			selected = []
+
+func get_movement_group():
+	return weakref_selected
