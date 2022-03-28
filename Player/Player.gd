@@ -17,8 +17,8 @@ var camera_speed = 1
 enum state {COMMAND,BUILD}
 var STATE = state.COMMAND
 
-onready var BuildIcon = $UI/BuildingIcon
-onready var CommandIcon = $UI/CommandIcon
+onready var BuildIcon = $UI/PlayerStateIcon/BuildingIcon
+onready var CommandIcon = $UI/PlayerStateIcon/CommandIcon
 
 onready var BuildingPredraw = $Building/BuildingPredraw
 
@@ -31,7 +31,7 @@ func _process(delta):
 	#	GlobalInformation.building_preview_hidden = true
 	#_update_building_predraw()
 	GlobalInformation.movement_group = weakref_selected
-	$UI/Label.text = str(STATE)
+	#$UI/Label.text = str(STATE)
 	if dragging != true:
 		if Input.is_action_pressed("player_move_up"):
 			position.y -= camera_speed
@@ -110,13 +110,16 @@ func _unhandled_input(event):
 			#if event.pressed:
 				#for unit in selected:
 					#unit.collider.move_to(event.position + refrence_position)
+	else:
+		if event:
+			_deselect_units()
 	if STATE == state.BUILD:
 		#GlobalInformation.building_preview_hidden = true
 		#BuildingPredraw.visible = true
 		GlobalInformation.player_state = "build"
 		#print("Build")
 		_update_building_predraw()
-		_deselect_units()
+		
 		
 		if GlobalInformation.can_build == true:
 			if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:

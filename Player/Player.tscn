@@ -20,42 +20,40 @@ script = ExtResource( 2 )
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="ColorRect" type="ColorRect" parent="UI"]
+[node name="FPS" type="Label" parent="UI"]
+margin_left = 37.0
+margin_right = 77.0
+margin_bottom = 14.0
+script = ExtResource( 5 )
+
+[node name="PlayerStateIcon" type="Control" parent="UI"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="UI/PlayerStateIcon"]
 margin_right = 34.0
 margin_bottom = 34.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="ColorRect" type="ColorRect" parent="UI/ColorRect"]
+[node name="ColorRect" type="ColorRect" parent="UI/PlayerStateIcon/ColorRect"]
 margin_left = 1.0
 margin_top = 1.0
 margin_right = 33.0
 margin_bottom = 33.0
 
-[node name="Label" type="Label" parent="UI"]
-visible = false
-margin_right = 40.0
-margin_bottom = 14.0
-text = "state"
-
-[node name="BuildingIcon" type="TextureRect" parent="UI"]
+[node name="BuildingIcon" type="TextureRect" parent="UI/PlayerStateIcon"]
 margin_left = 1.0
 margin_top = 1.0
 margin_right = 33.0
 margin_bottom = 33.0
 texture = ExtResource( 3 )
 
-[node name="CommandIcon" type="TextureRect" parent="UI"]
+[node name="CommandIcon" type="TextureRect" parent="UI/PlayerStateIcon"]
 margin_left = 1.0
 margin_top = 1.0
 margin_right = 33.0
 margin_bottom = 33.0
 texture = ExtResource( 4 )
-
-[node name="FPS" type="Label" parent="UI"]
-margin_left = 37.0
-margin_right = 77.0
-margin_bottom = 14.0
-script = ExtResource( 5 )
 
 [node name="Building" type="Node2D" parent="."]
 

@@ -1,24 +1,35 @@
 extends Node2D
 class_name Building
 
+var aligned_to_grid_x = null
+var aligned_to_grid_y = null
 
+func _ready():
+	aligned_to_grid_x = false
+	aligned_to_grid_y = false
 
 func _process(delta):
 	# snaps building to grid
-	if int(position.x) % 16 == 0:
-		pass
-	elif int(position.x) == 0:
-		pass
-	else:
-		var x = int(position.x) % 16
-		position.x -= x
-	if int(position.y) % 16 == 0:
-		pass
-	elif int(position.y) == 0:
-		pass
-		print(position)
-	else:
-		var y = int(position.y) % 16
-		position.y -= y
+	if aligned_to_grid_x != true:
+		print("not x")
+		if int(position.x) % 16 == 0:
+			aligned_to_grid_x = true
+		elif int(position.x) == 0:
+			aligned_to_grid_x = true
+		else:
+			var x = int(position.x) % 16
+			position.x -= x
+	if aligned_to_grid_y != true:
+		print("not y")
+		if int(position.y) % 16 == 0:
+			aligned_to_grid_y = true
+		elif int(position.y) == 0:
+			aligned_to_grid_y = true
+			#print(position)
+		else:
+			var y = int(position.y) % 16
+			position.y -= y
+	#if aligned_to_grid_x == true and aligned_to_grid_y == true:
+		#print("aligned")
 
 
