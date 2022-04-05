@@ -1,3 +1,4 @@
+Name = House2
 LivingCapacity = 4
 Resource = wood
 ResourceAmmount = 12

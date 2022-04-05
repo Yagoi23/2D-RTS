@@ -2,9 +2,13 @@ extends Node
 
 var files = []
 var building_sprites = []
+var txt_files = []
+
+var list_of_building = []
 
 
 var BuildingData = {
+	Name = null,
 	LivingCapacity = null,
 	GenerateResource = null,
 	ResourceAmmount = null
@@ -20,6 +24,9 @@ func _load_buildings():
 	list_files_in_directory(LoadPath)
 	_sort_files(files)
 	_compare_extension()
+	print(building_sprites)
+	print(txt_files)
+	_add_building_to_list()
 	
 
 func list_files_in_directory(path):
@@ -51,8 +58,38 @@ func _sort_files(files):
 
 func _compare_extension():
 	print("sorting2")
-	if files[0].get_extension() == "png":
-		building_sprites.append(files[0])
-		return true
-	else:
-		return false
+	print(files.size())
+	#var x = files.size()
+	while files.size() > 0:
+		#x -= 1
+		#print(x)
+		if files[0].get_extension() == "png":
+			building_sprites.append(files[0])
+			files.erase(files[0])
+		elif files[0].get_extension() == "txt":
+			#print("found txt")
+			txt_files.append(files[0])
+			files.erase(files[0])
+		else:
+			files.erase(files[0])
+
+func _add_building_to_list():
+	#load_file(txt_files[0])
+	var i = txt_files.size()
+	#i -= 1
+	while i > 0:
+		load_file(txt_files[i-1])
+		i -= 1
+
+func load_file(file):
+	var f = File.new()
+	f.open(LoadPath+file, File.READ)
+	var index = 1
+	while not f.eof_reached(): # iterate through all lines until the end of file is reached
+		var line = f.get_line()
+		line += " "
+		#print(line + str(index))
+		print(line)
+		index += 1
+	f.close()
+	return

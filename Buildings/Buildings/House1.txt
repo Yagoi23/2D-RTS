@@ -1,0 +1,4 @@
+Name = House1
+LivingCapacity = 4
+Resource = wood
+ResourceAmmount = 12
