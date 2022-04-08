@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/SelectDraw.gd" type="Script" id=2]
@@ -8,6 +8,18 @@
 [ext_resource path="res://Player/ArrowIcon.png" type="Texture" id=6]
 [ext_resource path="res://Player/UI.gd" type="Script" id=7]
 [ext_resource path="res://icon.png" type="Texture" id=8]
+[ext_resource path="res://Buildings/Buildings/House1.png" type="Texture" id=9]
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
 
 [node name="Player" type="Node2D"]
 script = ExtResource( 1 )
@@ -31,6 +43,7 @@ margin_bottom = 14.0
 script = ExtResource( 5 )
 
 [node name="PlayerStateIcon" type="Control" parent="UI"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -60,6 +73,7 @@ margin_bottom = 33.0
 texture = ExtResource( 4 )
 
 [node name="BottomMenu" type="Node2D" parent="UI"]
+visible = false
 
 [node name="ArrowButton" type="Control" parent="UI/BottomMenu"]
 margin_right = 40.0
@@ -120,6 +134,56 @@ margin_left = 2.0
 margin_top = 2.0
 margin_right = 1022.0
 margin_bottom = 86.0
+
+[node name="BuildingSelectionMenu" type="Node2D" parent="UI"]
+
+[node name="Control" type="Control" parent="UI/BuildingSelectionMenu"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_scale = Vector2( 8, 8 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/BuildingSelectionMenu/Control"]
+margin_right = 24.0
+margin_bottom = 48.0
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/BuildingSelectionMenu/Control/ScrollContainer"]
+margin_right = 24.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Sprite" type="Sprite" parent="UI/BuildingSelectionMenu/Control/ScrollContainer/VBoxContainer"]
+position = Vector2( 8, 8 )
+texture = ExtResource( 9 )
+vframes = 4
+frame = 3
+
+[node name="Sprite2" type="Sprite" parent="UI/BuildingSelectionMenu/Control/ScrollContainer/VBoxContainer"]
+position = Vector2( 8, 24 )
+texture = ExtResource( 9 )
+vframes = 4
+frame = 3
+
+[node name="Sprite3" type="Sprite" parent="UI/BuildingSelectionMenu/Control/ScrollContainer/VBoxContainer"]
+position = Vector2( 8, 40 )
+texture = ExtResource( 9 )
+vframes = 4
+frame = 3
+
+[node name="Sprite4" type="Sprite" parent="UI/BuildingSelectionMenu/Control/ScrollContainer/VBoxContainer"]
+position = Vector2( 8, 56 )
+texture = ExtResource( 9 )
+vframes = 4
+frame = 3
+
+[node name="VScrollBar" type="VScrollBar" parent="UI/BuildingSelectionMenu"]
+margin_left = 128.0
+margin_top = 8.0
+margin_right = 140.0
+margin_bottom = 384.0
+custom_styles/scroll_focus = SubResource( 4 )
+custom_styles/scroll = SubResource( 1 )
 
 [node name="Building" type="Node2D" parent="."]
 
