@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Buildings/Buildings/House1.png" type="Texture" id=1]
+[ext_resource path="res://blank.png" type="Texture" id=2]
+[ext_resource path="res://Buildings/BuildingUISprite.gd" type="Script" id=3]
+
+[node name="Sprite" type="Sprite"]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 1 )
+vframes = 4
+frame = 3
+script = ExtResource( 3 )
+
+[node name="TextureButton" type="TextureButton" parent="."]
+margin_left = -8.0
+margin_top = -8.0
+margin_right = 24.0
+margin_bottom = 24.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture_normal = ExtResource( 2 )
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_TextureButton_pressed"]

@@ -8,7 +8,7 @@
 [ext_resource path="res://Player/ArrowIcon.png" type="Texture" id=6]
 [ext_resource path="res://Player/UI.gd" type="Script" id=7]
 [ext_resource path="res://icon.png" type="Texture" id=8]
-[ext_resource path="res://Buildings/Buildings/House1.png" type="Texture" id=9]
+[ext_resource path="res://Player/BuildingTypeSelectionMenu.gd" type="Script" id=10]
 
 [node name="Player" type="Node2D"]
 script = ExtResource( 1 )
@@ -19,6 +19,19 @@ current = true
 
 [node name="SelectDraw" type="Node2D" parent="."]
 script = ExtResource( 2 )
+
+[node name="Building" type="Node2D" parent="."]
+
+[node name="BuildingPredraw" type="Node2D" parent="Building"]
+
+[node name="BuildingPredraw" type="ColorRect" parent="Building/BuildingPredraw"]
+visible = false
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 24.0
+margin_bottom = 24.0
+mouse_filter = 2
+color = Color( 0.32549, 1, 0.160784, 0.780392 )
 
 [node name="UI" type="Control" parent="."]
 margin_right = 40.0
@@ -32,7 +45,6 @@ margin_bottom = 14.0
 script = ExtResource( 5 )
 
 [node name="PlayerStateIcon" type="Control" parent="UI"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -62,7 +74,6 @@ margin_bottom = 33.0
 texture = ExtResource( 4 )
 
 [node name="BottomMenu" type="Node2D" parent="UI"]
-visible = false
 
 [node name="ArrowButton" type="Control" parent="UI/BottomMenu"]
 margin_right = 40.0
@@ -125,17 +136,18 @@ margin_right = 1022.0
 margin_bottom = 86.0
 
 [node name="BuildingSelectionMenu" type="Node2D" parent="UI"]
+position = Vector2( 0, 256 )
 
 [node name="ColorRect" type="ColorRect" parent="UI/BuildingSelectionMenu"]
 margin_right = 128.0
-margin_bottom = 128.0
+margin_bottom = 256.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="ColorRect" type="ColorRect" parent="UI/BuildingSelectionMenu/ColorRect"]
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 126.0
-margin_bottom = 126.0
+margin_bottom = 254.0
 
 [node name="Control" type="Control" parent="UI/BuildingSelectionMenu"]
 margin_right = 40.0
@@ -146,63 +158,15 @@ __meta__ = {
 
 [node name="ScrollContainer" type="ScrollContainer" parent="UI/BuildingSelectionMenu/Control"]
 margin_right = 140.0
-margin_bottom = 128.0
-rect_clip_content = false
+margin_bottom = 256.0
 scroll_horizontal_enabled = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/BuildingSelectionMenu/Control/ScrollContainer"]
 margin_right = 128.0
-margin_bottom = 320.0
+margin_bottom = 3200.0
 rect_min_size = Vector2( 128, 320 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="Sprite" type="Sprite" parent="UI/BuildingSelectionMenu/Control/ScrollContainer/VBoxContainer"]
-position = Vector2( 32, 32 )
-scale = Vector2( 4, 4 )
-texture = ExtResource( 9 )
-vframes = 4
-frame = 3
-
-[node name="Sprite2" type="Sprite" parent="UI/BuildingSelectionMenu/Control/ScrollContainer/VBoxContainer"]
-position = Vector2( 96, 32 )
-scale = Vector2( 4, 4 )
-texture = ExtResource( 9 )
-vframes = 4
-frame = 3
-
-[node name="Sprite3" type="Sprite" parent="UI/BuildingSelectionMenu/Control/ScrollContainer/VBoxContainer"]
-position = Vector2( 32, 96 )
-scale = Vector2( 4, 4 )
-texture = ExtResource( 9 )
-vframes = 4
-frame = 3
-
-[node name="Sprite4" type="Sprite" parent="UI/BuildingSelectionMenu/Control/ScrollContainer/VBoxContainer"]
-position = Vector2( 96, 96 )
-scale = Vector2( 4, 4 )
-texture = ExtResource( 9 )
-vframes = 4
-frame = 3
-
-[node name="Sprite5" type="Sprite" parent="UI/BuildingSelectionMenu/Control/ScrollContainer/VBoxContainer"]
-position = Vector2( 33, 160 )
-scale = Vector2( 4, 4 )
-texture = ExtResource( 9 )
-vframes = 4
-frame = 3
-
-[node name="Building" type="Node2D" parent="."]
-
-[node name="BuildingPredraw" type="Node2D" parent="Building"]
-
-[node name="BuildingPredraw" type="ColorRect" parent="Building/BuildingPredraw"]
-visible = false
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 24.0
-margin_bottom = 24.0
-mouse_filter = 2
-color = Color( 0.32549, 1, 0.160784, 0.780392 )
+script = ExtResource( 10 )
 
 [connection signal="pressed" from="UI/BottomMenu/ArrowButton/ArrowButton" to="UI" method="_on_ArrowButton_pressed"]
