@@ -2,6 +2,8 @@ extends Control
 
 onready var MultiplayerConfigUi = $MultiplayerConfig
 onready var ServerIPAdressBar = $MultiplayerConfig/LineEdit
+onready var ChatEnterBar = $InServerControl/LineEdit
+onready var ChatText = $InServerControl/Label
 
 onready var DeviceIPAdress = $CanvasLayer/DeviceIPAdress
 
@@ -27,3 +29,10 @@ func _on_Join_Server_pressed():
 		MultiplayerConfigUi.hide()
 		Network.ip_adress = ServerIPAdressBar.text
 		Network.join_server()
+
+
+func _on_SendChatButton_pressed():
+	var chattext = ChatEnterBar.text
+	var oldchattext = ChatText.text
+	ChatText.set_bbcode(oldchattext+"\n"+chattext)
+	ChatEnterBar.text = ""

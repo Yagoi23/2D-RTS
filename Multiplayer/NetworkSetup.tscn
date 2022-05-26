@@ -54,5 +54,30 @@ margin_right = 40.0
 margin_bottom = 14.0
 text = "Your IP Adress Should Be Here"
 
+[node name="InServerControl" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="LineEdit" type="LineEdit" parent="InServerControl"]
+margin_left = -488.0
+margin_top = 268.0
+margin_right = -184.0
+margin_bottom = 292.0
+
+[node name="Label" type="RichTextLabel" parent="InServerControl"]
+margin_left = -488.0
+margin_top = 92.0
+margin_right = -104.0
+margin_bottom = 266.0
+scroll_following = true
+
+[node name="SendChatButton" type="Button" parent="InServerControl"]
+margin_left = -184.0
+margin_top = 268.0
+margin_right = -108.0
+margin_bottom = 292.0
+text = "Send"
+
 [connection signal="pressed" from="MultiplayerConfig/Create_Server" to="." method="_on_Create_Server_pressed"]
 [connection signal="pressed" from="MultiplayerConfig/Join_Server" to="." method="_on_Join_Server_pressed"]
+[connection signal="pressed" from="InServerControl/SendChatButton" to="." method="_on_SendChatButton_pressed"]
