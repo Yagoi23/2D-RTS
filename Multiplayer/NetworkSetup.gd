@@ -6,6 +6,8 @@ onready var ServerIPAdressBar = $MultiplayerConfig/LineEdit
 #onready var ChatText = $InServerControl/Label
 
 onready var DeviceIPAdress = $CanvasLayer/DeviceIPAdress
+#var playerID = null
+onready var Name = $Name/LineEdit
 
 func _ready() -> void:
 	get_tree().connect("network_peer_connected", self, "_player_connected")
@@ -14,19 +16,26 @@ func _ready() -> void:
 	
 	DeviceIPAdress.text = Network.ip_adress
 
+func _process(delta):
+	Network.PlayerID = "["+Name.text+"]"
+
 func _player_connected(id) -> void:
 	print("Player "+str(id)+" has connected")
+	#playerID = id
 	
 func _player_disconnected(id) -> void:
 	print("Player "+str(id)+" has disconnected")
 
 func _on_Create_Server_pressed():
+	Network.user_name = Name.text
 	MultiplayerConfigUi.hide()
+	Name.hide()
 	Network.create_server()
 
 func _on_Join_Server_pressed():
 	if ServerIPAdressBar.text != "":
 		MultiplayerConfigUi.hide()
+		Name.hide()
 		Network.ip_adress = ServerIPAdressBar.text
 		Network.join_server()
 

@@ -57,5 +57,17 @@ text = "Your IP Adress Should Be Here"
 
 [node name="Chat" parent="." instance=ExtResource( 2 )]
 
+[node name="Name" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="LineEdit" type="LineEdit" parent="Name"]
+margin_left = -120.0
+margin_top = -84.0
+margin_right = 136.0
+margin_bottom = -60.0
+text = "Name"
+align = 1
+
 [connection signal="pressed" from="MultiplayerConfig/Create_Server" to="." method="_on_Create_Server_pressed"]
 [connection signal="pressed" from="MultiplayerConfig/Join_Server" to="." method="_on_Join_Server_pressed"]
