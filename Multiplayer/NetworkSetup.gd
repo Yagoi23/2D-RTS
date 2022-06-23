@@ -5,7 +5,7 @@ onready var ServerIPAdressBar = $MultiplayerConfig/LineEdit
 #onready var ChatEnterBar = $InServerControl/LineEdit
 #onready var ChatText = $InServerControl/Label
 
-onready var StartGame = $MultiplayerConfig/Start_Game
+onready var StartGame = $Start_Game
 
 onready var UserList = $User_List
 
@@ -52,7 +52,10 @@ func _on_Join_Server_pressed():
 
 remote func _start_game() -> void:
 	get_tree().change_scene("res://Multiplayer/Game.tscn")
-	pass
+
+func _startgame() -> void:
+	get_tree().change_scene("res://Multiplayer/Game.tscn")
+	
 
 #var chattext
 
@@ -69,3 +72,9 @@ remote func _start_game() -> void:
 	#var oldchattext = ChatText.text
 	#ChatText.set_bbcode(oldchattext+"\n"+chattext)
 	#ChatEnterBar.text = ""
+
+
+func _on_Start_Game_pressed():
+	rpc_unreliable("_start_game")
+	_startgame()
+	#pass # Replace with function body.
