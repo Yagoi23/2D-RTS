@@ -10,7 +10,7 @@ var speed = 60
 var target_max = 1
 
 var movement_group = []
-onready var player = get_node("/root/Game/Player")
+onready var player = get_node("/root/Level/Player")
 
 onready var SelectedIcon = $SelectedIcon
 
@@ -23,7 +23,7 @@ var last_position = Vector2.ZERO
 
 var nav_path : PoolVector2Array
 #onready var nav2d = get_node("/root/Level/Navigation2D")
-onready var pathfinding = get_node("/root/Game/Pathfinding")
+onready var pathfinding = get_node("/root/Level/Pathfinding")
 var leg_reset_threshold = 10
 
 var current_leg = Vector2.ZERO

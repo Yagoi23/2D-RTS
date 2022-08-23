@@ -15,7 +15,6 @@ var PlayerID = null
 var user_name : String = "Unammed Player"
 
 var ip_adress = ""
-
 func _ready() -> void:
 	ip_adress = IP.get_local_addresses()[3]
 	
