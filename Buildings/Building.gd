@@ -11,7 +11,7 @@ func _ready():
 func _process(delta):
 	# snaps building to grid
 	if aligned_to_grid_x != true:
-		print("not x")
+		#print("not x")
 		if int(position.x) % 16 == 0:
 			aligned_to_grid_x = true
 		elif int(position.x) == 0:
@@ -20,7 +20,7 @@ func _process(delta):
 			var x = int(position.x) % 16
 			position.x -= x
 	if aligned_to_grid_y != true:
-		print("not y")
+		#print("not y")
 		if int(position.y) % 16 == 0:
 			aligned_to_grid_y = true
 		elif int(position.y) == 0:

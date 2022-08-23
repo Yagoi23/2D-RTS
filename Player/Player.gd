@@ -6,7 +6,7 @@ var drag_start = Vector2.ZERO
 var select_rectangle = RectangleShape2D.new()
 var weakref_selected = []
 
-onready var building = get_node("res://Buildings/Building.gd")
+#onready var building = get_node("res://Buildings/Building.gd")
 onready var parent = get_parent()
 
 onready var select_draw = $SelectDraw
