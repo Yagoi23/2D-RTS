@@ -28,18 +28,6 @@ margin_right = 52.0
 margin_bottom = 20.0
 text = "Create Server"
 
-[node name="Start_Game" type="Button" parent="MultiplayerConfig"]
-visible = false
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -104.0
-margin_top = -20.0
-margin_right = 104.0
-margin_bottom = 20.0
-text = "Create Server"
-
 [node name="Join_Server" type="Button" parent="MultiplayerConfig"]
 anchor_left = 0.5
 anchor_top = 1.0
@@ -68,7 +56,6 @@ margin_bottom = 14.0
 text = "Your IP Adress Should Be Here"
 
 [node name="Chat" parent="." instance=ExtResource( 2 )]
-visible = false
 
 [node name="Name" type="Control" parent="."]
 margin_right = 40.0
@@ -82,14 +69,5 @@ margin_bottom = -60.0
 text = "Name"
 align = 1
 
-[node name="User_List" type="Label" parent="."]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = 424.0
-margin_top = -292.0
-margin_right = 504.0
-margin_bottom = -164.0
-
 [connection signal="pressed" from="MultiplayerConfig/Create_Server" to="." method="_on_Create_Server_pressed"]
-[connection signal="pressed" from="MultiplayerConfig/Start_Game" to="." method="_on_Create_Server_pressed"]
 [connection signal="pressed" from="MultiplayerConfig/Join_Server" to="." method="_on_Join_Server_pressed"]

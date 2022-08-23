@@ -10,27 +10,21 @@ func _process(delta):
 	Name = str(Network.PlayerID)
 
 remote func send_chat(txt):
-	history.text = ""
-	#history.bbcode_text += "[color=ffdd33]"#"[color=#ffffff]"#+str(Network.PlayerID)+" "
-	history.bbcode_text = txt 
-	#history.bbcode_text += "\n"
-	pass
+	history.bbcode_text += "[color=#ffffff]"#+str(Network.PlayerID)+" "
+	history.bbcode_text += txt
+	history.bbcode_text += "\n"
 
 func create_message() -> String:
-	#var newMessage = Label
-	history.text = ""
-	history.bbcode_text += str(Network.PlayerID)+" "#"[color=#ff8400]"+str(Network.PlayerID)+" "
+	history.bbcode_text += "[color=#ff8400]"+str(Network.PlayerID)+" "
 	history.bbcode_text += message.text 
 	history.bbcode_text += "\n"
 	return history.text
 
 func create_message_to_send() -> String:
 	#history.bbcode_text += "[color=#ff8400]"+str(Network.PlayerID)+" "
-	#history.bbcode_text += message.text 
-	#history.bbcode_text += "\n"
-	#return history.text
-	return ""
-	
+	history.bbcode_text += message.text 
+	history.bbcode_text += "\n"
+	return history.text
 
 func _on_SendChatButton_pressed():
 	if(message.text != "\n"):
