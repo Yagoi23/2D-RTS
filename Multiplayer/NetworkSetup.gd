@@ -55,6 +55,23 @@ remote func _start_game() -> void:
 
 func _startgame() -> void:
 	get_tree().change_scene("res://Multiplayer/Game.tscn")
+	
+
+#var chattext
+
+#func _on_SendChatButton_pressed():
+	#rpc("Chat")
+	
+
+#remote func send_chat(txt):
+	#history.bbcode_text += txt
+	#history.bbcode_text += ""
+
+#sync func Chat() -> void:
+	#chattext = ChatEnterBar.text
+	#var oldchattext = ChatText.text
+	#ChatText.set_bbcode(oldchattext+"\n"+chattext)
+	#ChatEnterBar.text = ""
 
 
 func _on_Start_Game_pressed():
