@@ -4,7 +4,7 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 
-[node name="TrueBuildingPreview" type="Node2D" groups=["obstacle"]]
+[node name="Building" type="Node2D" groups=["obstacle"]]
 position = Vector2( 8, 8 )
 script = ExtResource( 1 )
 
