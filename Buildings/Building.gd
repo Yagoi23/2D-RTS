@@ -1,6 +1,10 @@
 extends Node2D
 class_name Building
 
+export var unit_owner := 0
+var health = 1
+onready var collision_shape = $CollisionShape2D
+
 var aligned_to_grid_x = null
 var aligned_to_grid_y = null
 
@@ -32,4 +36,8 @@ func _process(delta):
 	#if aligned_to_grid_x == true and aligned_to_grid_y == true:
 		#print("aligned")
 
-
+func take_damage(amount):
+	health -= amount
+	if health <= 0:
+		queue_free()
+		

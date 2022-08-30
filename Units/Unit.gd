@@ -126,6 +126,9 @@ func _on_VisionRange_body_entered(body):
 	if body.is_in_group("Unit"):
 		if body.unit_owner != unit_owner:
 			possible_targets.append(body)
+	elif body.is_in_group("Building"):
+		if body.unit_owner != unit_owner:
+			possible_targets.append(body)
 
 func _on_VisionRange_body_exited(body):
 	if possible_targets.has(body):
